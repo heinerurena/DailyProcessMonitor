@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Page One</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+                           pullingText="Pull to refresh"
+                           refreshingSpinner="circles"
+                           refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-item>
+    <ion-label>Fecha</ion-label>
+    <ion-datetime displayFormat="MMM DD YYYY" (ngModelChange)="presentLoading()" [(ngModel)]="event.month">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-card>
+    <ion-card-header>
+      Monitor de Procesos
+    </ion-card-header>
+
+    <ion-list>
+
+      <button ion-item *ngFor="let service of serviceStatusResult" (click)="getServiceDetail(service.serviceId, service.serviceCode)">
+        <ion-icon [ngStyle]="{color: service.eventColor}"  name="ios-football" item-start></ion-icon>
+        {{service.serviceCode}} - {{service.serviceName}}
+      </button>
+
+    </ion-list>
+  </ion-card>
+
+</ion-content>
